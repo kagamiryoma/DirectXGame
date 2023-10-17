@@ -20,8 +20,17 @@ public:
 	void Initialize(HINSTANCE hInstance, HWND hwnd);
 	// 更新
 	void Update();
+
+	// 任意ボタンを押したとき
+	bool PushKey(BYTE keyNumber);
+
+	bool TriggerKey(BYTE keyNumber);
+
 private:
 	// キーボードのデバイス
 	Microsoft::WRL::ComPtr<IDirectInputDevice8> keyboard;
+
+	BYTE key[256] = {};
+	BYTE keyPre[256] = {};
 };
 

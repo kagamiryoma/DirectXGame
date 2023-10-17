@@ -27,9 +27,30 @@ void Input::Initialize(HINSTANCE hInstance, HWND hwnd)
 
 void Input::Update()
 {
-    BYTE key[256] = {};
+    // 前回のキー入力を保存
+    memcpy(keyPre, key, sizeof(key));
+
     // キーボード情報の取得開始
     keyboard->Acquire();
     // 全キーの入力状態を取得する
     keyboard->GetDeviceState(sizeof(key), key);
+}
+
+bool Input::PushKey(BYTE keyNumber)
+{
+    // 任意のボタンが押されているか
+    if (key[keyNumber]) {
+        return true;
+    }
+
+    // 任意のボタンが押されていなかった時
+    return false;
+}
+
+bool Input::TriggerKey(BYTE keyNumber)
+{
+    if ( keyPre[keyNumber] == 0 && key[keyNumber]) {
+        return true;
+    }
+    return false;
 }

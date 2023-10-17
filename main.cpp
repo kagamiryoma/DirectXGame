@@ -469,7 +469,7 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
     // DirectX初期化処理　ここまで
 #pragma endregion
 
-   
+
      // Input生成、初期化
     input_ = new Input();
     input_->Initialize(w.hInstance, hwnd);
@@ -943,7 +943,7 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
     device->CreateShaderResourceView(texBuff2.Get(), &srvDesc, srvHandle);
 
     size_t textureIndex = 0;
-   
+
 
     // ゲームループ
     while (true) {
@@ -960,11 +960,11 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 
         input_->Update();
 
-        //// 数字の0キーが押されていたら
-        //if (key[DIK_0]) 
-        //{
-        //    OutputDebugStringA("Hit 0\n");  // 出力ウィンドウに「Hit 0」と表示
-        //}
+        // 数字の0キーが押されていたら
+        if (input_->TriggerKey(DIK_0))
+        {
+            OutputDebugStringA("Hit 0\n");  // 出力ウィンドウに「Hit 0」と表示
+        }
 
         // DirectX毎フレーム処理　ここから
         //static float red = 1.0f;
@@ -987,14 +987,14 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
         //    matView = XMMatrixLookAtLH(XMLoadFloat3(&eye), XMLoadFloat3(&target), XMLoadFloat3(&up));
         //}
 
-        //// 座標操作
-        //if (key[DIK_UP] || key[DIK_DOWN] || key[DIK_RIGHT] || key[DIK_LEFT])
-        //{
-        //    if (key[DIK_UP]) { object3ds[0].position.y += 1.0f; }
-        //    else if (key[DIK_DOWN]) { object3ds[0].position.y -= 1.0f; }
-        //    if (key[DIK_RIGHT]) { object3ds[0].position.x += 1.0f; }
-        //    else if (key[DIK_LEFT]) { object3ds[0].position.x -= 1.0f; }
-        //}
+        // 座標操作
+        if (input_->PushKey(DIK_UP) || input_->PushKey(DIK_DOWN) || input_->PushKey(DIK_RIGHT) || input_->PushKey(DIK_LEFT))
+        {
+            if (input_->PushKey(DIK_UP)) { object3ds[0].position.y += 1.0f; }
+            else if (input_->PushKey(DIK_DOWN)) { object3ds[0].position.y -= 1.0f; }
+            if (input_->PushKey(DIK_RIGHT)) { object3ds[0].position.x += 1.0f; }
+            else if (input_->PushKey(DIK_LEFT)) { object3ds[0].position.x -= 1.0f; }
+        }
 
         // 全オブジェクトについて処理
         for (size_t i = 0; i < _countof(object3ds); i++)
@@ -1057,7 +1057,7 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
         // 定数バッファビュー(CBV)の設定コマンド
         commandList->SetGraphicsRootConstantBufferView(0, constBuffMaterial->GetGPUVirtualAddress());
         // SRVヒープの設定コマンド
-        ID3D12DescriptorHeap* descHeaps[] = {srvHeap.Get()};
+        ID3D12DescriptorHeap* descHeaps[] = { srvHeap.Get() };
         commandList->SetDescriptorHeaps(1, descHeaps);
         // SRVヒープの先頭ハンドルを取得（SRVを指しているはず）
         D3D12_GPU_DESCRIPTOR_HANDLE srvGpuHandle = srvHeap->GetGPUDescriptorHandleForHeapStart();
