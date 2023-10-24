@@ -11,13 +11,15 @@
 
 #include <wrl.h>
 
+#include "WinApp.h"
+
 //using namespace Microsoft::WRL;
 
 class Input
 {
 public:
 	// 初期化
-	void Initialize(HINSTANCE hInstance, HWND hwnd);
+	void Initialize(WinApp* winApp);
 	// 更新
 	void Update();
 
@@ -27,6 +29,8 @@ public:
 	bool TriggerKey(BYTE keyNumber);
 
 private:
+	WinApp* winApp_ = nullptr;
+
 	// キーボードのデバイス
 	Microsoft::WRL::ComPtr<IDirectInputDevice8> keyboard;
 
