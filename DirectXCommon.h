@@ -4,6 +4,7 @@
 #include <dxgi1_6.h>
 
 #include <vector>
+#include <chrono>
 
 #include "WinApp.h"
 
@@ -19,6 +20,11 @@ public:
 	void PreDraw();
 	// 描画後処理
 	void PostDraw();
+	
+
+	// Getter
+	ID3D12Device* GetDevice() const { return device.Get(); }
+	ID3D12GraphicsCommandList* GetCommandList() const { return commandList.Get(); }
 
 private:
 	// デバイス
@@ -33,6 +39,11 @@ private:
 	void DepthBufferInitialize();
 	// フェンス
 	void FenceInitialize();
+
+	// FPS固定初期化処理
+	void InitializeFixFPS();
+	// FPS固定更新処理
+	void UpdateFixFPS();
 
 private:
 	WinApp* winApp = nullptr;
@@ -59,4 +70,7 @@ private:
 	UINT64 fenceVal = 0;
 
 	D3D12_RESOURCE_BARRIER barrierDesc{};
+
+	// 記録用時間計測の変数
+	std::chrono::steady_clock::time_point reference_;
 };

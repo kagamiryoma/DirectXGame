@@ -1,5 +1,7 @@
 ﻿#include "WinApp.h"
 
+#pragma comment(lib, "winmm.lib")
+
 
 
 // ウィンドウプロシージャ
@@ -20,7 +22,6 @@ LRESULT WinApp::WindowProc(HWND hwnd, UINT msg, WPARAM wparam, LPARAM lparam) {
 void WinApp::Initialize()
 {
    
-
     // ウィンドウクラスの設定
   
     w.cbSize = sizeof(WNDCLASSEX);
@@ -52,7 +53,8 @@ void WinApp::Initialize()
     // ウィンドウを表示状態にする
     ShowWindow(hwnd, SW_SHOW);
 
-
+    // システムタイマー
+    timeBeginPeriod(1);
 }
 
 bool WinApp::Update()
