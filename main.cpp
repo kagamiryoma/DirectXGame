@@ -28,11 +28,11 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 
     // スプライトコモン
     SpriteCommon* spriteCommon = new SpriteCommon();
-    spriteCommon->Initialize();
+    spriteCommon->Initialize(dxCommon_);
 
     // スプライト
     Sprite* sprite = new Sprite();
-    sprite->Initialize();
+    sprite->Initialize(dxCommon_,spriteCommon);
 
     // ゲームループ
     while (true) {
@@ -46,6 +46,8 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
     
         // 更新前処理
         dxCommon_->PreDraw();
+
+        sprite->Draw();
 
         // 更新後処理
         dxCommon_->PostDraw();
