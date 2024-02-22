@@ -330,6 +330,11 @@ void DirectXCommon::FenceInitialize()
     assert(SUCCEEDED(result));
 }
 
+ID3D12DescriptorHeap* DirectXCommon::CreateDescriptorHeap(D3D12_DESCRIPTOR_HEAP_TYPE heapType, UINT numDescripots, bool shaderVisible)
+{
+    return nullptr;
+}
+
 void DirectXCommon::InitializeFixFPS()
 {
     // åªç›éûçèÇãLò^

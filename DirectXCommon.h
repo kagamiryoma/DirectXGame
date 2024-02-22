@@ -40,6 +40,9 @@ private:
 	// フェンス
 	void FenceInitialize();
 
+	// ディスクリプタヒープ作成
+	ID3D12DescriptorHeap* CreateDescriptorHeap(D3D12_DESCRIPTOR_HEAP_TYPE heapType, UINT numDescripots, bool shaderVisible);
+
 	// FPS固定初期化処理
 	void InitializeFixFPS();
 	// FPS固定更新処理
