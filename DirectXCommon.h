@@ -26,6 +26,15 @@ public:
 	ID3D12Device* GetDevice() const { return device.Get(); }
 	ID3D12GraphicsCommandList* GetCommandList() const { return commandList.Get(); }
 
+	//スワップチェイン
+	DXGI_SWAP_CHAIN_DESC1 GetSwapChainDesc() { return swapChainDesc; }
+
+	//RTVディスク
+	D3D12_RENDER_TARGET_VIEW_DESC GetRtvDesc() { return rtvDesc; }
+
+	//SRVディスクリプタヒープ
+	ID3D12DescriptorHeap* GetSrvDescriptorHeap() { return srvDescriptorHeap.Get(); }
+
 private:
 	// デバイス
 	void DeviceInitialize();
@@ -73,6 +82,15 @@ private:
 	UINT64 fenceVal = 0;
 
 	D3D12_RESOURCE_BARRIER barrierDesc{};
+
+	// レンダーターゲットビューの設定
+	D3D12_RENDER_TARGET_VIEW_DESC rtvDesc{};
+
+	// ディスクリプターヒープ
+	// RTV(ゲーム画面を保存しておく)
+	ComPtr<ID3D12DescriptorHeap> rtvDescriptorHeap;
+	// SRV(画像などを保存しておくもの)
+	ComPtr<ID3D12DescriptorHeap> srvDescriptorHeap;
 
 	// 記録用時間計測の変数
 	std::chrono::steady_clock::time_point reference_;
